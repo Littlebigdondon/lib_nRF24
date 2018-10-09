@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/com.xmos.cdt.toolchain.447490187/XDE_BUILD/delimiter=\:
+environment/project/com.xmos.cdt.toolchain.447490187/XDE_BUILD/operation=append
+environment/project/com.xmos.cdt.toolchain.447490187/XDE_BUILD/value=true
+environment/project/com.xmos.cdt.toolchain.447490187/XMOS_MODULE_PATH/delimiter=\:
+environment/project/com.xmos.cdt.toolchain.447490187/XMOS_MODULE_PATH/operation=append
+environment/project/com.xmos.cdt.toolchain.447490187/XMOS_MODULE_PATH/value=/Users/Donnie/Documents/XMOS/Hear Technologies/ADAT Card\:/Users/Donnie/Documents/XMOS/Hear Technologies/Legacy Hub Redesign\:/Users/Donnie/Documents/XMOS/Hear Technologies/Legacy Mixer Redesign\:/Users/Donnie/Documents/XMOS/Hear Technologies/lib_gpio/lib_gpio\:/Users/Donnie/Documents/XMOS/Hear Technologies/lib_i2s/lib_i2s\:/Users/Donnie/Documents/XMOS/Hear Technologies/lib_logging/lib_logging\:/Users/Donnie/Documents/XMOS/Hear Technologies/lib_xassert/lib_xassert
+environment/project/com.xmos.cdt.toolchain.447490187/append=true
+environment/project/com.xmos.cdt.toolchain.447490187/appendContributed=true
