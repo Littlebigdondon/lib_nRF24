@@ -65,52 +65,52 @@ typedef interface rf24_if {
     void open_reading_pipe(uint8_t number, const uint8_t *address);
 
     // Advanced Operations
-//    void printDetails();
+//    void printDetails(); // TODO
     rf24_bool_e available(uint8_t *pipe_num);
     rf24_bool_e rx_fifo_full();
     void power_down();
     void power_up();
 //    rf24_bool_e write_fast(const void *buf, uint8_t len);
     rf24_bool_e write_fast(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast);
-//    rf24_bool_e write_blocking(const void *buf, uint8_t len, uint32_t timeout);
-//    rf24_bool_e tx_standby();
-//    rf24_bool_e tx_standby(uint32_t timeout, rf24_bool_e start_tx);
-//    void write_ack_payload(uint8_t pipe, const void *buf, uint8_t len);
-//    rf24_bool_e is_ack_payload_available();
-//    {rf24_bool_e, rf24_bool_e, rf24_bool_e} what_happened();
-//    void start_fast_write(const void *buf, uint8_t len, const rf24_bool_e multicast, rf24_bool_e start_tx);
-//    void start_write(const void *buf, uint8_t len, const rf24_bool_e multicast);
-//    void reuse_tx();
-//    uint8_t flush_tx();
-//    rf24_bool_e test_carrier();
-//    rf24_bool_e test_RPD();
-//    rf24_bool_e is_valid();
-//    void close_reading_pipe(uint8_t pipe);
-//    void set_address_width(uint8_t width);
-//    void set_retries(uint8_t delay, uint8_t count);
-//    void set_channel(uint8_t channel);
-//    uint8_t get_channel();
-//    void set_payload_size(uint8_t size);
-//    uint8_t get_payload_size();
-//    uint8_t get_dynamic_payload_size();
-//    void enable_ack_payload();
-//    void enable_dynamic_payloads();
-//    void disable_dynamic_payloads();
-//    void enable_dynamic_ack();
-//    rf24_bool_e is_p_varient();
-//    void set_auto_ack(rf24_bool_e enable);
-//    void set_auto_ack(uint8_t pipe, rf24_bool_e enable);
-//    void set_PA_level(uint8_t level);
-//    uint8_t get_PA_level();
-//    rf24_bool_e set_data_rate(rf24_datarate_e speed);
-//    rf24_datarate_e get_data_rate();
-//    void set_crc_length(rf24_crclength_e length);
-//    rf24_crclength_e get_crc_length();
-//    void disable_crc();
-//    void mask_irq(rf24_bool_e tx_ok, rf24_bool_e tx_fail, rf24_bool_e rx_ready);
-//    void open_reading_pipe(uint8_t number, uint64_t address);
-//    void open_writing_pipe(uint64_t address);
-//    uint8_t flush_rx();
+//    rf24_bool_e write_blocking(const void *buf, uint8_t len, uint32_t timeout); // TODO
+    rf24_bool_e tx_standby();
+    rf24_bool_e tx_standby_with_timeout(uint32_t timeout, rf24_bool_e start_tx);
+    void write_ack_payload(uint8_t pipe, const uint8_t *buf, uint8_t len);
+    rf24_bool_e is_ack_payload_available();
+    {rf24_bool_e, rf24_bool_e, rf24_bool_e} what_happened();
+    void start_fast_write(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast, rf24_bool_e start_tx);
+    void start_write(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast);
+    void reuse_tx();
+    uint8_t flush_tx();
+    uint8_t flush_rx();
+    rf24_bool_e test_carrier();
+    rf24_bool_e test_RPD();
+//    rf24_bool_e is_valid(); // TODO
+    void close_reading_pipe(uint8_t pipe);
+    void set_address_width(uint8_t width);
+    void set_retries(uint8_t delay, uint8_t count);
+    void set_channel(uint8_t channel);
+    uint8_t get_channel();
+    void set_payload_size(uint8_t size);
+    uint8_t get_payload_size();
+    uint8_t get_dynamic_payload_size();
+    void enable_ack_payload();
+    void enable_dynamic_payloads();
+    void disable_dynamic_payloads();
+    void enable_dynamic_ack();
+    rf24_bool_e is_p_variant();
+    void set_auto_ack(rf24_bool_e enable);
+    void set_auto_ack_on_pipe(uint8_t pipe, rf24_bool_e enable);
+    void set_PA_level(uint8_t level);
+    uint8_t get_PA_level();
+    rf24_bool_e set_data_rate(rf24_datarate_e speed);
+    rf24_datarate_e get_data_rate();
+    void set_crc_length(rf24_crclength_e length);
+    rf24_crclength_e get_crc_length();
+    void disable_crc();
+    void mask_irq(rf24_bool_e tx_ok, rf24_bool_e tx_fail, rf24_bool_e rx_ready);
+//    void open_reading_pipe(uint8_t number, uint64_t address); // TODO
+//    void open_writing_pipe(uint64_t address); // TODO
 } rf24_if;
 
 void RF24(
