@@ -175,14 +175,9 @@
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/xc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/clang&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc/pdf}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/api}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.xc.compiler.input.374607249" name="XC" superClass="com.xmos.cdt.xc.compiler.input"/>
 							</tool>
@@ -486,14 +481,9 @@
 								<option id="com.xmos.c.compiler.option.include.paths.844723072" name="com.xmos.c.compiler.option.include.paths" superClass="com.xmos.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/clang&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc/pdf}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/api}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.c.compiler.input.c.1564807343" name="C" superClass="com.xmos.cdt.c.compiler.input.c"/>
 							</tool>
@@ -802,14 +792,9 @@
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/clang&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/c++/v1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_rf24/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/api}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/doc/pdf}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_spi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/api}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_nRF24/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.cxx.compiler.input.cpp.595999459" name="C++" superClass="com.xmos.cdt.cxx.compiler.input.cpp"/>
 							</tool>

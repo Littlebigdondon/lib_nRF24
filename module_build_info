@@ -13,4 +13,4 @@ MODULE_XCC_XC_FLAGS = $(XCC_XC_FLAGS)
 
 # The following specifies the dependencies of the module. When an application
 # includes a module it will also include all its dependencies.
-DEPENDENT_MODULES = lib_spi
+DEPENDENT_MODULES = lib_spi lib_gpio

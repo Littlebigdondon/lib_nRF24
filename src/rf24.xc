@@ -768,13 +768,18 @@ static rf24_bool_e rx_fifo_full(client interface spi_master_if i_spi,
     return (read_register(i_spi, spi_index, FIFO_STATUS) & _BV(RX_FULL));
 }
 
-void RF24(
+[[distributable]]
+void rf24_driver(
         server rf24_if i_rf24,
         client interface spi_master_if i_spi,
         unsigned spi_index,
         out port p_ce,
-        in port ?p_irq
+        client interface input_gpio_if ?i_irq
         ) {
+
+    if (!isnull(i_irq)) {
+        i_irq.event_when_pins_eq(0);
+    }
 
     while (1) {
         select {
@@ -979,6 +984,13 @@ void RF24(
             case i_rf24.mask_irq(rf24_bool_e tx_ok,
                     rf24_bool_e tx_fail, rf24_bool_e rx_ready):
                 mask_irq(i_spi, spi_index, tx_ok, tx_fail, rx_ready);
+                break;
+            case i_rf24.clear_interrupt():
+                // Do nothing -- this just clears notification tokens
+                // if we're not going to read or write after an interrupt
+                break;
+            case i_irq.event():
+                i_rf24.interrupt();
                 break;
         }
     }

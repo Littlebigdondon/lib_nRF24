@@ -11,6 +11,7 @@
 #include <xs1.h>
 #include <stdint.h>
 #include <spi.h>
+#include <gpio.h>
 #include "nRF24L01.h"
 
 /**
@@ -59,8 +60,9 @@ typedef interface rf24_if {
     void start_listening();
     void stop_listening();
 //    rf24_bool_e available();
-    void read(uint8_t *buf, uint8_t len);
-    rf24_bool_e write(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast);
+    [[clears_notification]] void read(uint8_t *buf, uint8_t len);
+    [[clears_notification]] rf24_bool_e write(const uint8_t *buf,
+            uint8_t len, const rf24_bool_e multicast);
     void open_writing_pipe(const uint8_t *address);
     void open_reading_pipe(uint8_t number, const uint8_t *address);
 
@@ -111,13 +113,16 @@ typedef interface rf24_if {
     void mask_irq(rf24_bool_e tx_ok, rf24_bool_e tx_fail, rf24_bool_e rx_ready);
 //    void open_reading_pipe(uint8_t number, uint64_t address); // TODO
 //    void open_writing_pipe(uint64_t address); // TODO
+    [[notification]] slave void interrupt();
+    [[clears_notification]] void clear_interrupt();
 } rf24_if;
 
-void RF24(
+[[distributable]]
+void rf24_driver(
         server rf24_if i_rf24,
         client interface spi_master_if i_spi,
         unsigned spi_index,
         out port p_ce,
-        in port ?p_irq
+        client interface input_gpio_if ?i_irq
         );
 #endif /* RF24_H_ */
