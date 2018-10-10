@@ -2,12 +2,13 @@
  * rf24.h
  *
  *  Created on: Oct 8, 2018
- *      Author: Donnie
+ *      Author: Donnie Pitts
  */
 
 
 #ifndef RF24_H_
 #define RF24_H_
+
 #include <xs1.h>
 #include <stdint.h>
 #include <spi.h>
@@ -35,59 +36,66 @@ typedef enum { RF24_1MBPS = 0, RF24_2MBPS, RF24_250KBPS } rf24_datarate_e;
  */
 typedef enum { RF24_CRC_DISABLED = 0, RF24_CRC_8, RF24_CRC_16 } rf24_crclength_e;
 
-
+/**
+ * Boolean type
+ *
+ * For use where bool is typically needed
+ */
 typedef enum { FALSE = 0, TRUE } rf24_bool_e;
 
+// Port direction macros
 #define LOW 0
 #define HIGH 1
 
+// SPI macros
 #define SPEED_KHZ 4000
 #define SPI_MODE SPI_MODE_0
 #define DEASSERT_TICKS 0
+
+// Helper macros
 #define _BV(x) (1<<(x))
 #define rf24_max(a,b) (a>b?a:b)
 #define rf24_min(a,b) (a<b?a:b)
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 
+
 /**
  * Driver for nRF24L01(+) 2.4GHz Wireless Transceiver
  */
-
 typedef interface rf24_if {
     // Primary Interface
     rf24_bool_e begin();
     rf24_bool_e is_chip_connected();
     void start_listening();
     void stop_listening();
-//    rf24_bool_e available();
     [[clears_notification]] void read(uint8_t *buf, uint8_t len);
     [[clears_notification]] rf24_bool_e write(const uint8_t *buf,
             uint8_t len, const rf24_bool_e multicast);
     void open_writing_pipe(const uint8_t *address);
     void open_reading_pipe(uint8_t number, const uint8_t *address);
 
+
     // Advanced Operations
-//    void printDetails(); // TODO
     rf24_bool_e available(uint8_t *pipe_num);
     rf24_bool_e rx_fifo_full();
     void power_down();
     void power_up();
-//    rf24_bool_e write_fast(const void *buf, uint8_t len);
-    rf24_bool_e write_fast(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast);
-//    rf24_bool_e write_blocking(const void *buf, uint8_t len, uint32_t timeout); // TODO
+    rf24_bool_e write_fast(const uint8_t *buf,
+            uint8_t len, const rf24_bool_e multicast);
     rf24_bool_e tx_standby();
     rf24_bool_e tx_standby_with_timeout(uint32_t timeout, rf24_bool_e start_tx);
     void write_ack_payload(uint8_t pipe, const uint8_t *buf, uint8_t len);
     rf24_bool_e is_ack_payload_available();
     {rf24_bool_e, rf24_bool_e, rf24_bool_e} what_happened();
-    void start_fast_write(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast, rf24_bool_e start_tx);
-    void start_write(const uint8_t *buf, uint8_t len, const rf24_bool_e multicast);
+    void start_fast_write(const uint8_t *buf, uint8_t len,
+            const rf24_bool_e multicast, rf24_bool_e start_tx);
+    void start_write(const uint8_t *buf,
+            uint8_t len, const rf24_bool_e multicast);
     void reuse_tx();
     uint8_t flush_tx();
     uint8_t flush_rx();
     rf24_bool_e test_carrier();
     rf24_bool_e test_RPD();
-//    rf24_bool_e is_valid(); // TODO
     void close_reading_pipe(uint8_t pipe);
     void set_address_width(uint8_t width);
     void set_retries(uint8_t delay, uint8_t count);
@@ -111,10 +119,18 @@ typedef interface rf24_if {
     rf24_crclength_e get_crc_length();
     void disable_crc();
     void mask_irq(rf24_bool_e tx_ok, rf24_bool_e tx_fail, rf24_bool_e rx_ready);
-//    void open_reading_pipe(uint8_t number, uint64_t address); // TODO
-//    void open_writing_pipe(uint64_t address); // TODO
     [[notification]] slave void interrupt();
     [[clears_notification]] void clear_interrupt();
+
+    // TODO
+//    rf24_bool_e available();
+//    void printDetails();
+//    rf24_bool_e write_fast(const void *buf, uint8_t len);
+//    rf24_bool_e write_blocking(const void *buf, uint8_t len, uint32_t timeout);
+//    rf24_bool_e is_valid();
+//    void open_reading_pipe(uint8_t number, uint64_t address);
+//    void open_writing_pipe(uint64_t address);
+
 } rf24_if;
 
 [[distributable]]
