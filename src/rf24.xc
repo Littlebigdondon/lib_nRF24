@@ -9,10 +9,10 @@
 #include <string.h>
 
 rf24_bool_e p_variant = FALSE; /* False for RF24L01 and true for RF24L01P */
-uint8_t payload_size; /**< Fixed size of payloads */
+uint8_t payload_size = 32; /**< Fixed size of payloads */
 rf24_bool_e dynamic_payloads_enabled = FALSE; /**< Whether dynamic payloads are enabled. */
-uint8_t pipe0_reading_address[5]; /**< Last address set on pipe 0 for reading. */
-uint8_t addr_width; /**< The address width to use - 3,4 or 5 bytes. */
+uint8_t pipe0_reading_address[5] = {0, 0, 0, 0, 0}; /**< Last address set on pipe 0 for reading. */
+uint8_t addr_width = 5; /**< The address width to use - 3,4 or 5 bytes. */
 
 static const uint8_t child_pipe_enable[] = {
   ERX_P0, ERX_P1, ERX_P2, ERX_P3, ERX_P4, ERX_P5
@@ -700,19 +700,19 @@ static rf24_bool_e is_chip_connected(client interface spi_master_if i_spi,
     return (setup >= 1 && setup <= 3);
 }
 static void open_writing_pipe(client interface spi_master_if i_spi,
-        unsigned spi_index, const uint8_t *address) {
+        unsigned spi_index, uint64_t address) {
     write_register_buffered(
             i_spi,
             spi_index,
             RX_ADDR_P0,
-            address,
+            (const uint8_t*)&address,
             addr_width
             );
     write_register_buffered(
             i_spi,
             spi_index,
             TX_ADDR,
-            address,
+            (const uint8_t*)&address,
             addr_width
             );
     write_register(
@@ -723,9 +723,9 @@ static void open_writing_pipe(client interface spi_master_if i_spi,
             );
 }
 static void open_reading_pipe(client interface spi_master_if i_spi,
-        unsigned spi_index, uint8_t child, const uint8_t *address) {
+        unsigned spi_index, uint8_t child, uint64_t address) {
     if (child == 0)
-        memcpy(pipe0_reading_address, address, addr_width);
+        memcpy(pipe0_reading_address, (const uint8_t*)&address, addr_width);
     if (child < 6) {
         // For pipes 2-5, only write the LSB
         if (child < 2) {
@@ -733,7 +733,7 @@ static void open_reading_pipe(client interface spi_master_if i_spi,
                     i_spi,
                     spi_index,
                     pgm_read_byte(&child_pipe[child]),
-                    address,
+                    (const uint8_t*)&address,
                     addr_width
                     );
         } else {
@@ -741,7 +741,7 @@ static void open_reading_pipe(client interface spi_master_if i_spi,
                     i_spi,
                     spi_index,
                     pgm_read_byte(&child_pipe[child]),
-                    address,
+                    (const uint8_t*)&address,
                     1
                     );
         }
@@ -813,10 +813,10 @@ void rf24_driver(
                         TRUE
                         );
                 break;
-            case i_rf24.open_writing_pipe(const uint8_t *address):
+            case i_rf24.open_writing_pipe(uint64_t address):
                     open_writing_pipe(i_spi, spi_index, address);
                 break;
-            case i_rf24.open_reading_pipe(uint8_t child, const uint8_t *address):
+            case i_rf24.open_reading_pipe(uint8_t child, uint64_t address):
                 open_reading_pipe(i_spi, spi_index, child, address);
                 break;
             case i_rf24.rx_fifo_full() -> rf24_bool_e r:
@@ -986,8 +986,13 @@ void rf24_driver(
                 mask_irq(i_spi, spi_index, tx_ok, tx_fail, rx_ready);
                 break;
             case i_rf24.clear_interrupt():
-                // Do nothing -- this just clears notification tokens
-                // if we're not going to read or write after an interrupt
+                // Clear the two possible interrupt flags with one command
+                write_register(
+                        i_spi,
+                        spi_index,
+                        NRF_STATUS,
+                        _BV(RX_DR) | _BV(MAX_RT) | _BV(TX_DS)
+                        );
                 break;
             case i_irq.event():
                 i_rf24.interrupt();

@@ -49,8 +49,8 @@ typedef enum { FALSE = 0, TRUE } rf24_bool_e;
 
 // SPI macros
 #define SPEED_KHZ 4000
-#define SPI_MODE SPI_MODE_0
-#define DEASSERT_TICKS 0
+#define SPI_MODE SPI_MODE_1
+#define DEASSERT_TICKS 1000
 
 // Helper macros
 #define _BV(x) (1<<(x))
@@ -71,8 +71,8 @@ typedef interface rf24_if {
     [[clears_notification]] void read(uint8_t *buf, uint8_t len);
     [[clears_notification]] rf24_bool_e write(const uint8_t *buf,
             uint8_t len, const rf24_bool_e multicast);
-    void open_writing_pipe(const uint8_t *address);
-    void open_reading_pipe(uint8_t number, const uint8_t *address);
+    void open_writing_pipe(uint64_t address);
+    void open_reading_pipe(uint8_t number, uint64_t address);
 
 
     // Advanced Operations
@@ -128,8 +128,6 @@ typedef interface rf24_if {
 //    rf24_bool_e write_fast(const void *buf, uint8_t len);
 //    rf24_bool_e write_blocking(const void *buf, uint8_t len, uint32_t timeout);
 //    rf24_bool_e is_valid();
-//    void open_reading_pipe(uint8_t number, uint64_t address);
-//    void open_writing_pipe(uint64_t address);
 
 } rf24_if;
 
