@@ -50,7 +50,7 @@ typedef enum { FALSE = 0, TRUE } rf24_bool_e;
 // SPI macros
 #define SPEED_KHZ 4000
 #define SPI_MODE SPI_MODE_1
-#define DEASSERT_TICKS 1000
+#define DEASSERT_TICKS 5        // (1) 100MHz tick == 10ns
 
 // Helper macros
 #define _BV(x) (1<<(x))
@@ -121,6 +121,7 @@ typedef interface rf24_if {
     void mask_irq(rf24_bool_e tx_ok, rf24_bool_e tx_fail, rf24_bool_e rx_ready);
     [[notification]] slave void interrupt();
     [[clears_notification]] void clear_interrupt();
+    void print_status();
 
     // TODO
 //    rf24_bool_e available();

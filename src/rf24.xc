@@ -6,7 +6,7 @@
  */
 
 #include "rf24.h"
-#include <string.h>
+#include "debug_print.h"
 
 rf24_bool_e p_variant = FALSE; /* False for RF24L01 and true for RF24L01P */
 uint8_t payload_size = 32; /**< Fixed size of payloads */
@@ -204,6 +204,20 @@ static void write_payload(client interface spi_master_if i_spi,
         i_spi.transfer8(0);
     i_spi.end_transaction(DEASSERT_TICKS);
 }
+static uint8_t get_status(client interface spi_master_if i_spi,
+        unsigned spi_index) {
+    return spi_transfer(i_spi, spi_index, RF24_NOP);
+}
+static void print_status(uint8_t status){
+  debug_printf("STATUS\t\t = 0x%02x RX_DR=%x TX_DS=%x MAX_RT=%x RX_P_NO=%x TX_FULL=%x\r\n",
+               status,
+               (status & _BV(RX_DR))?1:0,
+               (status & _BV(TX_DS))?1:0,
+               (status & _BV(MAX_RT))?1:0,
+               ((status >> RX_P_NO) & 0x07),
+               (status & _BV(TX_FULL))?1:0
+              );
+}
 static void read(client interface spi_master_if i_spi,
         unsigned spi_index, uint8_t *buf, uint8_t len) {
     // Fetch the payload
@@ -249,6 +263,10 @@ static rf24_bool_e write(client interface spi_master_if i_spi,
             multicast,
             start_tx
             );
+    //TODO: implement timeout
+//    while (!(get_status(i_spi, spi_index) & (_BV(TX_DS) | _BV(MAX_RT)))) {}
+    //TODO: remove this delay statement when get_status() & timeout are working ^^
+    delay_microseconds(20);
     p_ce <: LOW;
     uint8_t status = write_register(
             i_spi,
@@ -256,6 +274,7 @@ static rf24_bool_e write(client interface spi_master_if i_spi,
             NRF_STATUS,
             _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT)
             );
+    //Max retries exceeded
     if (status & _BV(MAX_RT)) {
         flush_tx(i_spi, spi_index);
         return FALSE;
@@ -273,12 +292,8 @@ static void start_write(client interface spi_master_if i_spi,
             multicast ? W_TX_PAYLOAD_NO_ACK : W_TX_PAYLOAD
             );
     p_ce <: HIGH;
-    delay_microseconds(10);
+    delay_microseconds(20);
     p_ce <: LOW;
-}
-static uint8_t get_status(client interface spi_master_if i_spi,
-        unsigned spi_index) {
-    return spi_transfer(i_spi, spi_index, RF24_NOP);
 }
 static rf24_bool_e available(client interface spi_master_if i_spi,
         unsigned spi_index, uint8_t *pipe_num) {
@@ -429,6 +444,7 @@ static rf24_bool_e is_ack_payload_available(client interface spi_master_if i_spi
             NRF_STATUS,
             _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT)
             );
+    print_status(status);
     return {status & _BV(TX_DS), status & _BV(MAX_RT), status & _BV(RX_DR)};
 }
 static void reuse_tx(client interface spi_master_if i_spi,
@@ -724,8 +740,11 @@ static void open_writing_pipe(client interface spi_master_if i_spi,
 }
 static void open_reading_pipe(client interface spi_master_if i_spi,
         unsigned spi_index, uint8_t child, uint64_t address) {
-    if (child == 0)
-        memcpy(pipe0_reading_address, (const uint8_t*)&address, addr_width);
+    if (child == 0) {
+        const uint8_t* addr_array = (const uint8_t*)&address;
+        for (int i = 0; i < addr_width; i++)
+            pipe0_reading_address[0] = addr_array[0];
+    }
     if (child < 6) {
         // For pipes 2-5, only write the LSB
         if (child < 2) {
@@ -994,8 +1013,12 @@ void rf24_driver(
                         _BV(RX_DR) | _BV(MAX_RT) | _BV(TX_DS)
                         );
                 break;
+            case i_rf24.print_status():
+                print_status(get_status(i_spi, spi_index));
+                break;
             case i_irq.event():
                 i_rf24.interrupt();
+                i_irq.event_when_pins_eq(0);
                 break;
         }
     }

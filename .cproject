@@ -198,6 +198,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert/api}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Hear!!!!Technologies/lib_xassert/lib_xassert/doc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.xc.compiler.input.374607249" name="XC" superClass="com.xmos.cdt.xc.compiler.input"/>
 							</tool>
@@ -524,6 +526,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert/api}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Hear!!!!Technologies/lib_xassert/lib_xassert/doc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.c.compiler.input.c.1564807343" name="C" superClass="com.xmos.cdt.c.compiler.input.c"/>
 							</tool>
@@ -855,6 +859,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lib_xassert/api}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Hear!!!!Technologies/lib_xassert/lib_xassert/doc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rf24_sample/src}&quot;"/>
 								</option>
 								<inputType id="com.xmos.cdt.cxx.compiler.input.cpp.595999459" name="C++" superClass="com.xmos.cdt.cxx.compiler.input.cpp"/>
 							</tool>
